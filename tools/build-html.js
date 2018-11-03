@@ -2,6 +2,7 @@ const fs = require('fs');
 const md = require('markdown-it')();
 const path = require('path');
 const extractSummary = require('extract-summary')
+const md5File = require('md5-file')
 
 const articles = loadArticles();
 CreateFrontPage();
@@ -15,8 +16,40 @@ function loadArticles() {
         id: article.id,
         name: article.name,
         date: article.date,
-        content: md.render(fs.readFileSync(path.join(__dirname, `../content/articles/${article.id}/content.md`)).toString())
+        content: md.render(
+            processImages(
+                `../content/articles/${article.id}`,
+                fs.readFileSync(path.join(__dirname, `../content/articles/${article.id}/content.md`)).toString()))
     }))
+}
+
+function processImages(rootUrl, content) {
+    const regex =/!\[.+\]\((.+)\)/g
+    let result = content
+    let m;
+    do {
+        m = regex.exec(content);
+
+        if (!m) return result;
+
+        const url = m[1];
+        const filePath = path.join(__dirname, rootUrl, url);
+        const hash = md5File.sync(filePath)
+        const extension = url.split('.')[1];
+        
+        result = result.replace(url, `/public/${hash}.${extension}`);
+
+        const file = fs.readFileSync(filePath);
+
+        if (!fs.existsSync(path.join(__dirname, '../dist/public'))){
+            fs.mkdirSync(path.join(__dirname, '../dist/public'));
+        }
+
+        fs.writeFileSync(path.join(__dirname, '../dist/public', `${hash}.${extension}`), file);
+
+    } while (m);
+
+    return result;
 }
 
 function CreateFrontPage() {
