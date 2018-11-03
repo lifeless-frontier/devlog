@@ -1,0 +1,15 @@
+language: node_js
+sudo: false
+node_js:
+  - 10
+script:
+  - npm run build
+deploy:
+  local-dir: dist
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  keep-history: true
+  repo: lifeless-frontier.github.io
+  on:
+    branch: master

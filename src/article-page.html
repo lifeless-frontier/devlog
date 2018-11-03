@@ -7,7 +7,6 @@
 
     <title>Lifeless frontier</title>
     <meta name="author" content="Marek Magdziak">
-
     <link rel="stylesheet" href="/styles.css?v=1.0">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
 </head>
@@ -22,7 +21,15 @@
     </header>
     <section class="page__body">
         <div class="page__content">
-            {{content}}
+            <article class="article">
+                <h2 class="article__heading">{{heading}}</h2>
+                <div class="article__date">{{date}}</div>
+                <div class="article__content">
+                    {{content}}
+                </div>
+            </article>
+
+            <a href="/">🠸 Back to the front page</a>
         </div>
     </section>
     <footer class="page__footer">
@@ -32,5 +39,4 @@
     </footer>
     <script src="/scripts.js"></script>
 </body>
-
 </html>
