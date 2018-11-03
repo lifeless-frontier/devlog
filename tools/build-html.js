@@ -7,6 +7,8 @@ const articles = loadArticles();
 CreateFrontPage();
 CreateArticlePages();
 
+fs.writeFileSync('dist/CNAME', 'www.lifeless-frontier.com'); 
+
 function loadArticles() {
     return JSON.parse(fs.readFileSync(path.join(__dirname, '../content/articles.json')).toString())
     .map(article => ({
