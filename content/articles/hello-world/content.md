@@ -7,7 +7,7 @@ I decided it might be also a good idea to write a devlog. I do need to channel a
 Since I'm more software developer than anything else, this whole thing will be more leaned towards software development details.
 
 ## The Game
-![Procedurally generated galaxy](assets/galaxy1.PNG)
+![Procedurally generated galaxy](assets/galaxy1.png)
 
 Lifeless frontier is procedurally generated RPG/strategy game taking place in a distant future where humanity doesn't longer possess the need for their biological shells. Instead, they live in simulations powered by a huge swarm of computers or in solitude exploring the Milky way galaxy.
 
