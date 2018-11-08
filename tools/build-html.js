@@ -1,7 +1,6 @@
 const fs = require('fs');
 const md = require('markdown-it')();
 const path = require('path');
-const extractSummary = require('extract-summary')
 const md5File = require('md5-file')
 
 const articles = loadArticles();
@@ -19,7 +18,11 @@ function loadArticles() {
         content: md.render(
             processImages(
                 `../content/articles/${article.id}`,
-                fs.readFileSync(path.join(__dirname, `../content/articles/${article.id}/content.md`)).toString()))
+                fs.readFileSync(path.join(__dirname, `../content/articles/${article.id}/content.md`)).toString())),
+        summary: md.render(
+            processImages(
+                `../content/articles/${article.id}`,
+                fs.readFileSync(path.join(__dirname, `../content/articles/${article.id}/summary.md`)).toString()))
     }))
 }
 
@@ -60,7 +63,7 @@ function CreateFrontPage() {
         html += articleTemplate
             .replace('{{heading}}', article.name)
             .replace('{{date}}', article.date)
-            .replace('{{content}}', extractSummary(article.content, 'html'))
+            .replace('{{content}}', article.summary)
             .replace('{{article-url}}', `/${article.id}`)
     }
 
