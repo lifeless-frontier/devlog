@@ -1,5 +1,7 @@
 const fs = require('fs');
-const md = require('markdown-it')();
+const md = require('markdown-it')({
+    html: true
+});
 const path = require('path');
 const md5File = require('md5-file')
 
@@ -15,19 +17,15 @@ function loadArticles() {
         id: article.id,
         name: article.name,
         date: article.date,
-        content: md.render(
-            processImages(
-                `../content/articles/${article.id}`,
+        content: processLinks(`../content/articles/${article.id}`, md.render(
                 fs.readFileSync(path.join(__dirname, `../content/articles/${article.id}/content.md`)).toString())),
-        summary: md.render(
-            processImages(
-                `../content/articles/${article.id}`,
+        summary: processLinks(`../content/articles/${article.id}`, md.render(
                 fs.readFileSync(path.join(__dirname, `../content/articles/${article.id}/summary.md`)).toString()))
     }))
 }
 
-function processImages(rootUrl, content) {
-    const regex =/!\[.+\]\((.+)\)/g
+function processLinks(rootUrl, content) {
+    const regex =/src="([^"]+)/g
     let result = content
     let m;
     do {

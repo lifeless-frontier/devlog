@@ -1,5 +1,10 @@
 [
     {
+        "id": "galaxy-rendering",
+        "name": "New galaxy renderer",
+        "date": "19. 11. 2018"
+    },
+    {
         "id": "hello-world",
         "name": "Hello world",
         "date": "8. 11. 2018"
